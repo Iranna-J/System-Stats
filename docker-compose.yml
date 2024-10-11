@@ -1,0 +1,19 @@
+services:
+  frontend:
+    build:
+      context: ./SystemStats-Frontend
+      dockerfile: Dockerfile-react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./SystemStats-Frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./SystemStats-Backend
+      dockerfile: Dockerfile-springboot
+    ports:
+      - "8080:8080"

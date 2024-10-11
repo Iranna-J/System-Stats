@@ -1,0 +1,1 @@
+docker stop system-stats && docker rm system-stats

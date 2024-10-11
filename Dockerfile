@@ -17,22 +17,18 @@ RUN apt update && apt install -y \
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
               apt-get install -y nodejs
 
+RUN apt update && apt install -y maven
+
 COPY . .
 RUN cd /system_stats/Frontend/ && \  
         npm install
-
-RUN apt update && apt install -y maven
 
 RUN cd /system_stats/Backend && mvn clean package
 
 EXPOSE 3000 8080
 
-# CMD ["sh", "-c", "cd /system_stats/System-Stats-Frontend && npm start --port 3000"]
 
+CMD sh -c "cd /system_stats/Backend/target && java -jar system-stats-backend.jar & sleep 5  && cd /system_stats/Frontend && npm start --port 3000"
 
-#java -jar Backend/target/system-stats-backend.jar
-# FROM openjdk:17-jdk-slim
-# WORKDIR /app
-# COPY target/system-stats-backend.jar system-stats-backend.jar
-# EXPOSE 8080
-# ENTRYPOINT ["java", "-jar", "system-stats-backend.jar"]
+# CMD ["sh", "-c", "cd /system_stats/Backend && java -jar system-stats-backend.jar"]
+# CMD ["sh", "-c", "cd /system_stats/Frontend && npm start --port 3000"]

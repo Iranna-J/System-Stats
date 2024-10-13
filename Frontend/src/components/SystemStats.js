@@ -48,7 +48,7 @@ const SystemStats = () => {
     const value = Number(customInterval);
 
     if (isNaN(value) || value <= 0) {
-      setValidationError('Please enter a valid positive number.');
+      setValidationError('Please enter greater than 0 second.');
       return;
     }
 
